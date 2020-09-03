@@ -12,6 +12,7 @@ add_libonnc_src(
     NvDlaMemInfoPass.cpp
     NvDlaTaskSubmitPass.cpp
     NvDlaFileGenPass.cpp
+    GraphvizONNCIRPass.cpp
     Config/NvFull.cpp
     TargetInfo/FooNvdlaTargetInfo.cpp
     TargetInfo/FooNvdlaTargetMemInfo.cpp)

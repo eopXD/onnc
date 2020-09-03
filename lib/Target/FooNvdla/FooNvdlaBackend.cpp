@@ -14,6 +14,7 @@
 #include "NvDlaMemInfoPass.h"
 #include "NvDlaTaskSubmitPass.h"
 #include "NvDlaFileGenPass.h"
+#include "GraphvizONNCIRPass.h"
 
 #include <onnc/Analysis/UpdateGraphOutputSize.h>
 #include <onnc/Analysis/NodeIRScheduler.h>
@@ -34,7 +35,29 @@
 #include <onnc/Transforms/DeadNodeElimination.h>
 #include <onnc/Transforms/RemoveTrainingNodes.h>
 #include <onnc/Transforms/TensorSel.h>
+#include <onnc/Transforms/TensorSel/Standards/AddLower.h>
+#include <onnc/Transforms/TensorSel/Standards/AveragePoolLower.h>
+#include <onnc/Transforms/TensorSel/Standards/BatchNormalizationLower.h>
+#include <onnc/Transforms/TensorSel/Standards/CastLower.h>
+#include <onnc/Transforms/TensorSel/Standards/ConcatLower.h>
 #include <onnc/Transforms/TensorSel/Standards/ConvLower.h>
+#include <onnc/Transforms/TensorSel/Standards/FlattenLower.h>
+#include <onnc/Transforms/TensorSel/Standards/GemmLower.h>
+#include <onnc/Transforms/TensorSel/Standards/GlobalAveragePoolLower.h>
+#include <onnc/Transforms/TensorSel/Standards/LRNLower.h>
+#include <onnc/Transforms/TensorSel/Standards/LeakyReluLower.h>
+#include <onnc/Transforms/TensorSel/Standards/MaxPoolLower.h>
+#include <onnc/Transforms/TensorSel/Standards/MulLower.h>
+#include <onnc/Transforms/TensorSel/Standards/PReluLower.h>
+#include <onnc/Transforms/TensorSel/Standards/ReluLower.h>
+#include <onnc/Transforms/TensorSel/Standards/ReshapeLower.h>
+#include <onnc/Transforms/TensorSel/Standards/SoftmaxLower.h>
+#include <onnc/Transforms/TensorSel/Standards/SplitLower.h>
+#include <onnc/Transforms/TensorSel/Standards/SqueezeLower.h>
+#include <onnc/Transforms/TensorSel/Standards/SumLower.h>
+#include <onnc/Transforms/TensorSel/Standards/TransposeLower.h>
+#include <onnc/Transforms/TensorSel/Standards/UnsqueezeLower.h>
+#include <onnc/Transforms/TensorSel/Standards/UpsampleLower.h>
 
 #include <memory>
 
@@ -71,6 +94,8 @@ void FooNvdlaBackend::addTensorSel(PassManager& pPM)
 void FooNvdlaBackend::addOnncIrOptimization(PassManager& pPM, OptimizationOptions& options)
 {
   TargetBackend::addOnncIrOptimization(pPM, options);
+
+  pPM.add<GraphvizONNCIRPass>();
 }
 
 void FooNvdlaBackend::addTensorSched(PassManager& pPM)
@@ -110,7 +135,24 @@ void FooNvdlaBackend::addCodeEmit(PassManager& pPM, const Path& pOutput)
 
 void FooNvdlaBackend::RegisterLowers(LowerRegistry& pRegistry) const
 {
+  pRegistry.emplace<AddLower>();
+  pRegistry.emplace<AveragePoolLower>();
+  pRegistry.emplace<BatchNormalizationLower>();
+  pRegistry.emplace<ConcatLower>();
   pRegistry.emplace<ConvLower>();
+  pRegistry.emplace<FlattenLower>();
+  pRegistry.emplace<GemmLower>();
+  pRegistry.emplace<GlobalAveragePoolLower>();
+  pRegistry.emplace<LRNLower>();
+  pRegistry.emplace<MaxPoolLower>();
+  pRegistry.emplace<MulLower>();
+  pRegistry.emplace<ReluLower>();
+  pRegistry.emplace<ReshapeLower>();
+  pRegistry.emplace<SoftmaxLower>();
+  pRegistry.emplace<SqueezeLower>();
+  pRegistry.emplace<SumLower>();
+  pRegistry.emplace<TransposeLower>();
+  pRegistry.emplace<UnsqueezeLower>();
 }
 
 
