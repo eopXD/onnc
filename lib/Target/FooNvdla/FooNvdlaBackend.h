@@ -36,7 +36,7 @@ public:
   
   void addMemAlloc(PassManager& pPM) override;
 
-  void addCodeEmit(PassManager& pPM, const Path& pOutput) override;
+  //void addCodeEmit(PassManager& pPM, const Path& pOutput) override;
 
   void RegisterLowers(LowerRegistry& pRegistry) const override;
 

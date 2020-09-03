@@ -124,14 +124,14 @@ void FooNvdlaBackend::addMemAlloc(PassManager& pPM)
   pPM.add<NvDlaMemInfoPass>(constants, &m_pMeta);
 }
 
-void FooNvdlaBackend::addCodeEmit(PassManager& pPM, const Path& pOutput)
+/*void FooNvdlaBackend::addCodeEmit(PassManager& pPM, const Path& pOutput)
 {
   static foonvdla::CodeEmitVisitor ceVisitor(*this, m_pMeta);
   pPM.add<CodeEmit>(ceVisitor)
      .add<NvDlaTaskSubmitPass>(&m_pMeta, BLOB_DLA_VERSION, BLOB_EMU_VERSION)
      .add<NvDlaFileGenPass>(&m_pMeta, LOADABLE_VERSION)
     ;
-}
+}*/
 
 void FooNvdlaBackend::RegisterLowers(LowerRegistry& pRegistry) const
 {
@@ -153,6 +153,7 @@ void FooNvdlaBackend::RegisterLowers(LowerRegistry& pRegistry) const
   pRegistry.emplace<SumLower>();
   pRegistry.emplace<TransposeLower>();
   pRegistry.emplace<UnsqueezeLower>();
+  pRegistry.emplace<UpsampleLower>();
 }
 
 
