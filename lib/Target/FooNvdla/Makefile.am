@@ -9,6 +9,7 @@ ONNC_TARGET_SOURCES += \
   Target/FooNvdla/NvDlaTaskSubmitPass.cpp \
   Target/FooNvdla/NvDlaFileGenPass.cpp \
   Target/FooNvdla/GraphvizONNCIRPass.cpp \
+  Target/FooNvdla/UpsampleAsConvTransposePass.cpp \
   Target/FooNvDla/Config/NvFull.cpp \
   Target/FooNvdla/TargetInfo/FooNvdlaTargetInfo.cpp \
   Target/FooNvdla/TargetInfo/FooNvdlaTargetMemInfo.cpp

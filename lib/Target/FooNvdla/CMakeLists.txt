@@ -13,6 +13,7 @@ add_libonnc_src(
     NvDlaTaskSubmitPass.cpp
     NvDlaFileGenPass.cpp
     GraphvizONNCIRPass.cpp
+    UpsampleAsConvTransposePass.cpp
     Config/NvFull.cpp
     TargetInfo/FooNvdlaTargetInfo.cpp
     TargetInfo/FooNvdlaTargetMemInfo.cpp)

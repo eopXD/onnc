@@ -15,6 +15,7 @@
 #include "NvDlaTaskSubmitPass.h"
 #include "NvDlaFileGenPass.h"
 #include "GraphvizONNCIRPass.h"
+#include "UpsampleAsConvTransposePass.h"
 
 #include <onnc/Analysis/UpdateGraphOutputSize.h>
 #include <onnc/Analysis/NodeIRScheduler.h>
@@ -94,6 +95,10 @@ void FooNvdlaBackend::addTensorSel(PassManager& pPM)
 void FooNvdlaBackend::addOnncIrOptimization(PassManager& pPM, OptimizationOptions& options)
 {
   TargetBackend::addOnncIrOptimization(pPM, options);
+
+  pPM.add<GraphvizONNCIRPass>();
+
+  pPM.add<UpsampleAsConvTransposePass>();
 
   pPM.add<GraphvizONNCIRPass>();
 }
